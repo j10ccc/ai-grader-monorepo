@@ -1,0 +1,9 @@
+{
+  "name": "ai-grader-monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:grader": "cd apps/grader && npm run dev"
+  },
+  "description": "",
+  "author": ""
+}
