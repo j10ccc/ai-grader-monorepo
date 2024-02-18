@@ -2,8 +2,20 @@
   "name": "ai-grader-monorepo",
   "version": "1.0.0",
   "scripts": {
-    "dev:grader": "cd apps/grader && npm run dev"
+    "dev:grader": "cd apps/grader && npm run dev",
+    "lint": "nx lint",
+    "build": "nx build",
+    "build:all": "nx run-many -t build"
   },
-  "description": "",
-  "author": ""
+  "devDependencies": {
+    "@nx/eslint": "18.0.4",
+    "@nx/vite": "18.0.4",
+    "@nx/web": "18.0.4",
+    "@vitest/ui": "^1.0.4",
+    "eslint": "~8.48.0",
+    "nx": "18.0.4",
+    "vite": "~5.0.0",
+    "vitest": "^1.0.4"
+  },
+  "dependencies": {}
 }
