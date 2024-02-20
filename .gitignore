@@ -15,3 +15,6 @@ node_modules
 .DS_Store
 
 .nx/cache
+
+.docker/nginx/default.conf
+.env
