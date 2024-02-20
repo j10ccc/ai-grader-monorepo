@@ -7,6 +7,7 @@ import "virtual:uno.css";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
+  basepath: "/grader",
   routeTree,
   context: {
     auth: undefined!

@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
       react(),
       TanStackRouterVite(),
     ],
+    base: "/grader",
     server: {
       proxy: {
         "/api": {

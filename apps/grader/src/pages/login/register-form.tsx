@@ -13,6 +13,7 @@ export default function RegisterForm() {
   async function handleSubmit(e: any) {
     setSubmitting(true);
     const res = await AuthAPI.register(e);
+    console.log(res);
     setSubmitting(false);
   }
 
@@ -33,10 +34,10 @@ export default function RegisterForm() {
         </Form.Item>
       </div>
       <Form.Item name="password">
-        <Input.Password placeholder="密码" />
+        <Input.Password placeholder="密码" autoComplete="password" />
       </Form.Item>
       <Form.Item name="re-password">
-        <Input.Password placeholder="确认密码" />
+        <Input.Password placeholder="确认密码" autoComplete="re-password" />
       </Form.Item>
       <Button
         type="primary"
