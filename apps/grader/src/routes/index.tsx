@@ -1,14 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { clsx } from "clsx";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: Index,
-});
+  beforeLoad: async () => {
+    const authenticated = true;
+    if (authenticated) {
+      throw redirect({ to: "/dashboard" });
+    } else {
+      throw redirect({ to: "/login" });
+    }
 
-function Index() {
-  return (
-    <main>
-      <h1 className={clsx("c-black")}> Grader </h1>
-    </main>
-  );
-}
+  }
+});
