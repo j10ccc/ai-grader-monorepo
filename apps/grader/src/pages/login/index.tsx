@@ -1,7 +1,7 @@
 import { Tabs } from "antd";
+import SystemConstants from "@/constants/system";
 import LoginForm from "./login-form";
 import RegisterForm from "./register-form";
-import SystemConstants from "../../constants/system";
 
 export default function LoginPage() {
 

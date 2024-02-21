@@ -1,3 +1,4 @@
+import path from "path";
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 import react from "@vitejs/plugin-react-swc";
 import Unocss from "unocss/vite";
@@ -14,6 +15,11 @@ export default defineConfig(({ mode }) => {
       TanStackRouterVite(),
     ],
     base: "/grader",
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src")
+      }
+    },
     server: {
       proxy: {
         "/api": {
