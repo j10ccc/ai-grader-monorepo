@@ -1,10 +1,6 @@
-import { Outlet, createLazyFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
+import WorkspaceLayout from "@/components/layout/workspace";
 
 export const Route = createLazyFileRoute("/_authenticated/_workspace")({
-  component: () => (
-    <main>
-      <h1>Workspace</h1>
-      <Outlet />
-    </main>
-  )
+  component: WorkspaceLayout
 });
