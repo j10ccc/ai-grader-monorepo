@@ -23,6 +23,7 @@ export default function RegisterForm() {
         <Form.Item name="type" className="w-30">
           <Select
             placeholder="身份"
+            defaultValue={UserRole.Teacher}
             options={[
               { value: UserRole.Teacher, label: "普通教师" },
               { value: UserRole.Header, label: "学科组长" },
