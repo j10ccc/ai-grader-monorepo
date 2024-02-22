@@ -1,11 +1,7 @@
 import { AuthAPI } from "@ai-grader/apis";
+import { UserEntities } from "@ai-grader/entities";
 import { Button, Form, Input, Select } from "antd";
 import { useState } from "react";
-
-enum UserRole {
-  Teacher = 1,
-  Header
-}
 
 export default function RegisterForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -23,10 +19,10 @@ export default function RegisterForm() {
         <Form.Item name="type" className="w-30">
           <Select
             placeholder="身份"
-            defaultValue={UserRole.Teacher}
+            defaultValue={UserEntities.Role.Teacher}
             options={[
-              { value: UserRole.Teacher, label: "普通教师" },
-              { value: UserRole.Header, label: "学科组长" },
+              { value: UserEntities.Role.Teacher, label: "普通教师" },
+              { value: UserEntities.Role.Header, label: "学科组长" },
             ]}
           />
         </Form.Item>

@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@ai-grader/apis": "workspace:^0.0.0",
+    "@ai-grader/entities": "workspace:^0.0.0",
     "@tanstack/react-router": "^1.16.5",
     "@tanstack/router-devtools": "^1.16.5",
     "antd": "^5.14.1",
     "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@j10c/eslint-config": "^0.4.0",
