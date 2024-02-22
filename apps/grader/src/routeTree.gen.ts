@@ -15,7 +15,9 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthenticatedWorkspaceExamsImport } from './routes/_authenticated/_workspace/exams'
 import { Route as AuthenticatedWorkspaceDashboardImport } from './routes/_authenticated/_workspace/dashboard'
+import { Route as AuthenticatedWorkspaceClassesImport } from './routes/_authenticated/_workspace/classes'
 
 // Create Virtual Routes
 
@@ -50,9 +52,21 @@ const AuthenticatedWorkspaceLazyRoute = AuthenticatedWorkspaceLazyImport.update(
   import('./routes/_authenticated/_workspace.lazy').then((d) => d.Route),
 )
 
+const AuthenticatedWorkspaceExamsRoute =
+  AuthenticatedWorkspaceExamsImport.update({
+    path: '/exams',
+    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
+  } as any)
+
 const AuthenticatedWorkspaceDashboardRoute =
   AuthenticatedWorkspaceDashboardImport.update({
     path: '/dashboard',
+    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
+  } as any)
+
+const AuthenticatedWorkspaceClassesRoute =
+  AuthenticatedWorkspaceClassesImport.update({
+    path: '/classes',
     getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
   } as any)
 
@@ -76,8 +90,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWorkspaceLazyImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/_workspace/classes': {
+      preLoaderRoute: typeof AuthenticatedWorkspaceClassesImport
+      parentRoute: typeof AuthenticatedWorkspaceLazyImport
+    }
     '/_authenticated/_workspace/dashboard': {
       preLoaderRoute: typeof AuthenticatedWorkspaceDashboardImport
+      parentRoute: typeof AuthenticatedWorkspaceLazyImport
+    }
+    '/_authenticated/_workspace/exams': {
+      preLoaderRoute: typeof AuthenticatedWorkspaceExamsImport
       parentRoute: typeof AuthenticatedWorkspaceLazyImport
     }
   }
@@ -89,7 +111,9 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AuthenticatedRoute.addChildren([
     AuthenticatedWorkspaceLazyRoute.addChildren([
+      AuthenticatedWorkspaceClassesRoute,
       AuthenticatedWorkspaceDashboardRoute,
+      AuthenticatedWorkspaceExamsRoute,
     ]),
   ]),
   LoginLazyRoute,

@@ -1,17 +1,26 @@
-import { Link } from "@tanstack/react-router";
+import { UserEntities } from "@ai-grader/entities";
+import { Link, ToPathOption } from "@tanstack/react-router";
+import { useMemo } from "react";
 import SystemConstants from "@/constants/system";
+import useAuth from "@/hooks/use-auth";
+import { routeTree } from "@/routeTree.gen";
 
 function Navigator() {
-  const NavFeatures = [
-    { name: "评阅任务" },
-    { name: "班级学情" },
+  const NavFeatures: Array<{ name: string; route: ToPathOption<typeof routeTree>}>  = [
+    { name: "工作台", route: "/dashboard" },
+    { name: "评阅任务", route: "/exams" },
+    { name: "班级学情", route: "/classes" },
   ];
 
   return (
     <nav className="flex items-center justify-between bg-white px-4">
       <div className="flex items-center space-x-4">
         { NavFeatures.map(item => (
-          <Link className="decoration-none c-gray-5 text-sm">{ item.name }</Link>
+          <Link
+            key={item.route}
+            to={item.route}
+            className="decoration-none c-gray-5 text-sm"
+          >{ item.name }</Link>
         ))}
       </div>
     </nav>
@@ -19,13 +28,16 @@ function Navigator() {
 }
 
 function Profile() {
-  // TODO: use auth state
-  const role = "教师";
+  const { role } = useAuth();
+  const roleName = useMemo(() => {
+    if (role !== null) return UserEntities.RoleEnumNameMap[role];
+    return "未知";
+  }, [role]);
 
   return (
     <div className="text-sm">
       <span className="op-50">身份：</span>
-      <span>{ role }</span>
+      <span>{ roleName }</span>
     </div>
   );
 }
