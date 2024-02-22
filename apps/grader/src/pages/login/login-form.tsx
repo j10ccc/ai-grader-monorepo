@@ -1,20 +1,28 @@
 import { AuthAPI } from "@ai-grader/apis";
+import { UserEntities } from "@ai-grader/entities";
 import { useNavigate } from "@tanstack/react-router";
 import { Button, Form, Input, message } from "antd";
 import { useState } from "react";
+import useAuth from "@/hooks/use-auth";
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const setAuth = useAuth(store => store.setAuth);
 
   async function handleSubmit(e: any) {
     setSubmitting(true);
     const res = await AuthAPI.login(e);
     setSubmitting(false);
-    if (res.code === 200) {
-      navigate({ to: "/dashboard" });
-    } else {
-      message.error({ content: res.msg });
+    try {
+      if (res.code === 200) {
+        const roleCode = UserEntities.RoleNameEnumMap[res.data];
+        setAuth(roleCode);
+        navigate({ to: "/dashboard" });
+      } else {
+      }
+    } catch(e: any) {
+      message.error({ content: e.message });
     }
   }
 

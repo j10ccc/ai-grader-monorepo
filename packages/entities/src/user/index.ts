@@ -5,8 +5,13 @@ export enum Role {
   Header
 }
 
+export const RoleNameEnumMap: Record<string, Role> = {
+  "教师": Role.Teacher,
+  "教务主任": Role.Header
+}
+
 export const UserSchema = z.object({
-  lastLoginTime: z.string().datetime(),
+  lastLoginTime: z.number(),
   role: z.nativeEnum(Role)
 })
 

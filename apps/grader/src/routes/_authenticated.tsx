@@ -1,14 +1,17 @@
-import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useNavigate } from "@tanstack/react-router";
+import RouteAuthGuard from "@/components/route-auth-guard";
 
 export const Route = createFileRoute("/_authenticated")({
-  beforeLoad: async () => {
-    const isAuthenticated = () => true;
-
-    if (!isAuthenticated()) {
-      throw redirect({
-        to: "/login"
-      });
-    }
-  },
-  component: () => <Outlet />
+  component: Authenticated
 });
+
+function Authenticated() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteAuthGuard
+      onCheck={(authenticated) => !authenticated && navigate({ to: "/login" })}>
+      <Outlet />
+    </RouteAuthGuard>
+  );
+}

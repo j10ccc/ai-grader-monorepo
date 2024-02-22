@@ -1,6 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import RouteAuthGuard from "@/components/route-auth-guard";
 import WelcomePage from "@/pages/welcome";
 
 export const Route = createFileRoute("/")({
-  component: () => <WelcomePage />
+  component: Index
 });
+
+function Index() {
+  const navigate = useNavigate();
+
+  return (
+    <RouteAuthGuard
+      placeholder={<WelcomePage />}
+      onCheck={(authenticated) => {
+        navigate({ to: authenticated ? "/dashboard" : "/login" });
+      }}
+    />
+  );
+}

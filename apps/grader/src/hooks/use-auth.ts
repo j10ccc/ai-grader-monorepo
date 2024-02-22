@@ -7,6 +7,7 @@ interface AuthState extends Nullable<UserEntities.User> {
   _hasHydrated: boolean,
   reset: () => void;
   checkLoginExpire: () => boolean;
+  setAuth: (role: UserEntities.Role) => void;
   _setHydrated: (state: boolean) => void,
 }
 
@@ -21,12 +22,15 @@ const useAuth = create<AuthState>()(persist(
       if (!last) return true;
       return differenceInDays(new Date(last), new Date()) > 3;
     },
+    setAuth: (role) => {
+      set({ role, lastLoginTime: new Date().getTime() });
+    },
     _setHydrated: (state) => {
       set({ _hasHydrated: state });
     }
   }),
   {
-    name: "auth-storage",
+    name: "@ai-grader/auth-storage",
     storage: createJSONStorage(() => localStorage),
     onRehydrateStorage: () => (state) => {
       state?._setHydrated(true);
