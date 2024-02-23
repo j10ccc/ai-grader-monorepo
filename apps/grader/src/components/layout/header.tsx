@@ -1,4 +1,5 @@
-import { Link, ToPathOption } from "@tanstack/react-router";
+import { Link, ToPathOption, useNavigate } from "@tanstack/react-router";
+import { Dropdown } from "antd";
 import SystemConstants from "@/constants/system";
 import useAuth from "@/hooks/use-auth";
 import { routeTree } from "@/routeTree.gen";
@@ -28,12 +29,27 @@ function Navigator() {
 
 function Profile() {
   const { role } = useAuth();
+  const navigate = useNavigate();
+  const reset = useAuth(store => store.reset);
+
+  function handleLogout() {
+    reset();
+    navigate({ to: "/login" });
+  }
 
   return (
-    <div className="text-sm">
-      <span className="op-50">身份：</span>
-      <span>{ role }</span>
-    </div>
+    <Dropdown
+      trigger={["click"]}
+      menu={{
+        items: [
+          { key: "logout", danger: true, label: <span onClick={handleLogout}>退出登录</span> }
+        ]
+      }}>
+      <div className="text-sm px-xs py-1 border border-gray-200 rounded-1 border-solid bg-gray-50 cursor-pointer">
+        <span className="op-50">身份：</span>
+        <span>{ role }</span>
+      </div>
+    </Dropdown>
   );
 }
 
