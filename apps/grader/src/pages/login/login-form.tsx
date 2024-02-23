@@ -21,6 +21,8 @@ export default function LoginForm() {
       }
     } catch(e: any) {
       message.error({ content: e.message });
+    } finally {
+      setSubmitting(false);
     }
   }
 
