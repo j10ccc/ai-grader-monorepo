@@ -19,10 +19,10 @@ export default function RegisterForm() {
         <Form.Item name="type" className="w-30">
           <Select
             placeholder="身份"
-            defaultValue={UserEntities.Role.Teacher}
+            defaultValue={UserEntities.RoleCodeEnum.Teacher}
             options={[
-              { value: UserEntities.Role.Teacher, label: "普通教师" },
-              { value: UserEntities.Role.Header, label: "学科组长" },
+              { value: UserEntities.RoleCodeEnum.Teacher, label: UserEntities.RoleNameEnum.Teacher },
+              { value: UserEntities.RoleCodeEnum.Header, label: UserEntities.RoleNameEnum.Header },
             ]}
           />
         </Form.Item>

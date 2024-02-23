@@ -1,5 +1,6 @@
 import ky from "ky";
 import { HttpResponse } from "../utils/common";
+import { UserEntities } from "@ai-grader/entities";
 
 export function login(props: {
   username: string;
@@ -7,14 +8,13 @@ export function login(props: {
 }) {
   return ky.post("/api/user/login", {
     json: props
-  }).json<HttpResponse<{ token: string }>>()
+  }).json<HttpResponse<UserEntities.RoleNameEnum>>()
 }
 
 export function register(props: {
   username: string;
   password: string;
-  // FIXME: use type lib
-  type: number;
+  type: UserEntities.RoleCodeEnum;
 }) {
   return ky.post("/api/user/register", {
     json: props

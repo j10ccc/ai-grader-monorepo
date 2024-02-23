@@ -1,6 +1,4 @@
-import { UserEntities } from "@ai-grader/entities";
 import { Link, ToPathOption } from "@tanstack/react-router";
-import { useMemo } from "react";
 import SystemConstants from "@/constants/system";
 import useAuth from "@/hooks/use-auth";
 import { routeTree } from "@/routeTree.gen";
@@ -20,6 +18,7 @@ function Navigator() {
             key={item.route}
             to={item.route}
             className="decoration-none c-gray-5 text-sm"
+            params={{}}
           >{ item.name }</Link>
         ))}
       </div>
@@ -29,15 +28,11 @@ function Navigator() {
 
 function Profile() {
   const { role } = useAuth();
-  const roleName = useMemo(() => {
-    if (role !== null) return UserEntities.RoleEnumNameMap[role];
-    return "未知";
-  }, [role]);
 
   return (
     <div className="text-sm">
       <span className="op-50">身份：</span>
-      <span>{ roleName }</span>
+      <span>{ role }</span>
     </div>
   );
 }

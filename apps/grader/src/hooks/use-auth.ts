@@ -7,7 +7,7 @@ interface AuthState extends Nullable<UserEntities.User> {
   _hasHydrated: boolean,
   reset: () => void;
   checkLoginExpire: () => boolean;
-  setAuth: (role: UserEntities.Role) => void;
+  setAuth: (role: UserEntities.RoleNameEnum) => void;
   _setHydrated: (state: boolean) => void,
 }
 

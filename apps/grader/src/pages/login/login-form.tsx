@@ -1,5 +1,4 @@
 import { AuthAPI } from "@ai-grader/apis";
-import { UserEntities } from "@ai-grader/entities";
 import { useNavigate } from "@tanstack/react-router";
 import { Button, Form, Input, message } from "antd";
 import { useState } from "react";
@@ -16,8 +15,7 @@ export default function LoginForm() {
     setSubmitting(false);
     try {
       if (res.code === 200) {
-        const roleCode = UserEntities.RoleNameEnumMap[res.data];
-        setAuth(roleCode);
+        setAuth(res.data);
         navigate({ to: "/dashboard" });
       } else {
       }
