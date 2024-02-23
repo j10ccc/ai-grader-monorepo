@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { format } from "date-fns";
-import useReviewRask from "@/hooks/exam/use-review-task";
+import useExamList from "@/hooks/exam/use-exam-list";
 
 const columns: ColumnsType<ExamEntities.Exam> = [
   { title: "编号", dataIndex: "id", width: 80 },
@@ -23,12 +23,13 @@ const columns: ColumnsType<ExamEntities.Exam> = [
 ];
 
 export default function ExamsTable() {
-  const { tasks: exams } = useReviewRask();
+  const { exams } = useExamList();
 
   return (
     <Table
       dataSource={exams}
       columns={columns}
+      rowKey="id"
       bordered
     />
   );
