@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import RouteAuthGuard from "@/components/route-auth-guard";
+import RouteAuthGuard from "@/components/auth/route-auth-guard";
 import WelcomePage from "@/pages/welcome";
 
 export const Route = createFileRoute("/")({

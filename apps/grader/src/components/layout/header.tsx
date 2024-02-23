@@ -1,26 +1,32 @@
+import { UserEntities } from "@ai-grader/entities";
 import { Link, ToPathOption, useNavigate } from "@tanstack/react-router";
 import { Dropdown } from "antd";
 import SystemConstants from "@/constants/system";
 import useAuth from "@/hooks/use-auth";
 import { routeTree } from "@/routeTree.gen";
+import RoleAccess from "../auth/role-access";
 
 function Navigator() {
-  const NavFeatures: Array<{ name: string; route: ToPathOption<typeof routeTree>}>  = [
-    { name: "工作台", route: "/dashboard" },
-    { name: "评阅任务", route: "/exams" },
-    { name: "班级学情", route: "/classes" },
+  const NavFeatures: Array<
+    { name: string; route: ToPathOption<typeof routeTree>, access: UserEntities.RoleNameEnum[] }
+  > = [
+    { name: "工作台", route: "/dashboard", access: [UserEntities.RoleNameEnum.Header, UserEntities.RoleNameEnum.Teacher] },
+    { name: "评阅任务", route: "/exams", access: [UserEntities.RoleNameEnum.Teacher] },
+    { name: "班级学情", route: "/classes", access: [UserEntities.RoleNameEnum.Teacher] },
   ];
 
   return (
     <nav className="flex items-center justify-between bg-white px-4">
       <div className="flex items-center space-x-4">
         { NavFeatures.map(item => (
-          <Link
-            key={item.route}
-            to={item.route}
-            className="decoration-none c-gray-5 text-sm"
-            params={{}}
-          >{ item.name }</Link>
+          <RoleAccess roles={item.access}>
+            <Link
+              key={item.route}
+              to={item.route}
+              className="decoration-none c-gray-5 text-sm"
+              params={{}}
+            >{ item.name }</Link>
+          </RoleAccess>
         ))}
       </div>
     </nav>

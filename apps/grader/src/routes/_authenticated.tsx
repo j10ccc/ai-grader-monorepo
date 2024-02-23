@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, useNavigate } from "@tanstack/react-router";
-import RouteAuthGuard from "@/components/route-auth-guard";
+import RouteAuthGuard from "@/components/auth/route-auth-guard";
 
 export const Route = createFileRoute("/_authenticated")({
   component: Authenticated

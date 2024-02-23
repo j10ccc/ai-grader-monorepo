@@ -2,7 +2,6 @@ import { type ReactNode, useEffect, useState } from "react";
 import useAuth from "@/hooks/use-auth";
 
 interface IProps {
-  // target: ToPathOption<typeof routeTree>;
   children?: ReactNode;
   placeholder?: ReactNode;
   onCheck?: (isAuthenticated: boolean) => void;
