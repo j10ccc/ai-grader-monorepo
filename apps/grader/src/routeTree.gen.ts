@@ -19,6 +19,7 @@ import { Route as AuthenticatedWorkspaceExamsImport } from './routes/_authentica
 import { Route as AuthenticatedWorkspaceDashboardImport } from './routes/_authenticated/_workspace/dashboard'
 import { Route as AuthenticatedWorkspaceClassesImport } from './routes/_authenticated/_workspace/classes'
 import { Route as AuthenticatedWorkspaceExamExamIdImport } from './routes/_authenticated/_workspace/exam.$examId'
+import { Route as AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdImport } from './routes/_authenticated/_workspace/header/review-tasks/detail.$examId'
 
 // Create Virtual Routes
 
@@ -26,8 +27,8 @@ const LoginLazyImport = createFileRoute('/login')()
 const AuthenticatedWorkspaceLazyImport = createFileRoute(
   '/_authenticated/_workspace',
 )()
-const AuthenticatedWorkspaceHeaderReviewTasksLazyImport = createFileRoute(
-  '/_authenticated/_workspace/header/review-tasks',
+const AuthenticatedWorkspaceHeaderReviewTasksIndexLazyImport = createFileRoute(
+  '/_authenticated/_workspace/header/review-tasks/',
 )()
 
 // Create/Update Routes
@@ -74,19 +75,25 @@ const AuthenticatedWorkspaceClassesRoute =
     getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
   } as any)
 
-const AuthenticatedWorkspaceHeaderReviewTasksLazyRoute =
-  AuthenticatedWorkspaceHeaderReviewTasksLazyImport.update({
-    path: '/header/review-tasks',
-    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
-  } as any).lazy(() =>
-    import('./routes/_authenticated/_workspace/header/review-tasks.lazy').then(
-      (d) => d.Route,
-    ),
-  )
-
 const AuthenticatedWorkspaceExamExamIdRoute =
   AuthenticatedWorkspaceExamExamIdImport.update({
     path: '/exam/$examId',
+    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
+  } as any)
+
+const AuthenticatedWorkspaceHeaderReviewTasksIndexLazyRoute =
+  AuthenticatedWorkspaceHeaderReviewTasksIndexLazyImport.update({
+    path: '/header/review-tasks/',
+    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/_authenticated/_workspace/header/review-tasks/index.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdRoute =
+  AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdImport.update({
+    path: '/header/review-tasks/detail/$examId',
     getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
   } as any)
 
@@ -126,8 +133,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWorkspaceExamExamIdImport
       parentRoute: typeof AuthenticatedWorkspaceLazyImport
     }
-    '/_authenticated/_workspace/header/review-tasks': {
-      preLoaderRoute: typeof AuthenticatedWorkspaceHeaderReviewTasksLazyImport
+    '/_authenticated/_workspace/header/review-tasks/': {
+      preLoaderRoute: typeof AuthenticatedWorkspaceHeaderReviewTasksIndexLazyImport
+      parentRoute: typeof AuthenticatedWorkspaceLazyImport
+    }
+    '/_authenticated/_workspace/header/review-tasks/detail/$examId': {
+      preLoaderRoute: typeof AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdImport
       parentRoute: typeof AuthenticatedWorkspaceLazyImport
     }
   }
@@ -143,7 +154,8 @@ export const routeTree = rootRoute.addChildren([
       AuthenticatedWorkspaceDashboardRoute,
       AuthenticatedWorkspaceExamsRoute,
       AuthenticatedWorkspaceExamExamIdRoute,
-      AuthenticatedWorkspaceHeaderReviewTasksLazyRoute,
+      AuthenticatedWorkspaceHeaderReviewTasksIndexLazyRoute,
+      AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdRoute,
     ]),
   ]),
   LoginLazyRoute,

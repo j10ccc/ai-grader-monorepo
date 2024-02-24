@@ -6,7 +6,7 @@ import { useState } from "react";
 
 interface IProps {
   open: boolean;
-  onClose: () => void;
+  onClose: (created?: boolean) => void;
 }
 
 const FormDataSchema = ExamEntities.ExamSchema
@@ -28,7 +28,7 @@ export default function CreateReviewTaskForm(props: IProps) {
         const res = await ExamAPI.createReviewTask(value as FormDataType);
         if (res.code !== 200) throw res.msg;
         else {
-          onClose();
+          onClose(true);
           message.success("成功创建考试：" + value.name);
         }
       } else {
@@ -42,7 +42,7 @@ export default function CreateReviewTaskForm(props: IProps) {
   }
 
   return (
-    <Drawer title="创建阅卷任务" open={open} onClose={onClose}>
+    <Drawer title="创建阅卷任务" open={open} onClose={() => onClose(false)}>
       <Form
         disabled={submitting}
         layout="vertical"

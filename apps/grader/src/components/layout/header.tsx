@@ -12,7 +12,7 @@ function Navigator() {
   > = [
     { name: "工作台", route: "/dashboard", access: [UserEntities.RoleNameEnum.Header, UserEntities.RoleNameEnum.Teacher] },
     { name: "评阅任务", route: "/exams", access: [UserEntities.RoleNameEnum.Teacher] },
-    { name: "阅卷管理", route: "/header/review-task", access: [UserEntities.RoleNameEnum.Header ] },
+    { name: "阅卷管理", route: "/header/review-tasks", access: [UserEntities.RoleNameEnum.Header ] },
     { name: "班级学情", route: "/classes", access: [UserEntities.RoleNameEnum.Teacher] },
   ];
 
