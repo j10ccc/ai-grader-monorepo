@@ -12,6 +12,7 @@ function Navigator() {
   > = [
     { name: "工作台", route: "/dashboard", access: [UserEntities.RoleNameEnum.Header, UserEntities.RoleNameEnum.Teacher] },
     { name: "评阅任务", route: "/exams", access: [UserEntities.RoleNameEnum.Teacher] },
+    { name: "阅卷管理", route: "/header/review-task", access: [UserEntities.RoleNameEnum.Header ] },
     { name: "班级学情", route: "/classes", access: [UserEntities.RoleNameEnum.Teacher] },
   ];
 
@@ -19,9 +20,8 @@ function Navigator() {
     <nav className="flex items-center justify-between bg-white px-4">
       <div className="flex items-center space-x-4">
         { NavFeatures.map(item => (
-          <RoleAccess roles={item.access}>
+          <RoleAccess roles={item.access} key={item.route}>
             <Link
-              key={item.route}
               to={item.route}
               className="decoration-none c-gray-5 text-sm"
               params={{}}

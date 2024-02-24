@@ -12,6 +12,14 @@ export function getExamDetail(examId: number) {
     .json<HttpResponse<ExamEntities.Exam>>();
 }
 
+export function createReviewTask(
+  value: Pick<ExamEntities.Exam, "name" | "subject" | "ai_mark">
+) {
+  return ky.post("/api/exam", {
+    json: value
+  }).json<HttpResponse<null>>();
+}
+
 export function getAnswerPaperInExam(examId: number) {
   return ky.get("/api/exam/answer-paper", {
     searchParams: {
