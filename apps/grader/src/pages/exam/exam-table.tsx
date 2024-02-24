@@ -17,7 +17,7 @@ const columns: ColumnsType<ExamEntities.Exam> = [
   { title: "阅卷状态", dataIndex: "status" },
   { title: "操作", render: (_, record) => (
     <div className="flex gap-sm">
-      <Link to={"/exam/$examId"} params={{ examId: record.id.toString() }}>查看</Link>
+      <Link to={"/exams/detail/$examId"} params={{ examId: record.id.toString() }}>查看</Link>
     </div>
   )}
 ];
@@ -30,6 +30,9 @@ export default function ExamsTable() {
       dataSource={exams}
       columns={columns}
       rowKey="id"
+      pagination={{
+        pageSize: 8
+      }}
       bordered
     />
   );
