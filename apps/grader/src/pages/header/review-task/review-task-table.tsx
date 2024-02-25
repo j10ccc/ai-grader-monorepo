@@ -19,7 +19,11 @@ const columns: ColumnsType<ExamEntities.Exam> = [
   { title: "阅卷状态", dataIndex: "status" },
   { title: "操作", render: (_, record) => (
     <div className="flex gap-sm">
-      <Link to={"/header/review-tasks/detail/$examId"} params={{ examId: record.id.toString() }}>查看</Link>
+      <Link
+        to={"/header/review-tasks/detail/$examId"}
+        params={{ examId: record.id.toString() }}
+        search={{ tab: "" }}
+      >查看</Link>
     </div>
   )}
 ];

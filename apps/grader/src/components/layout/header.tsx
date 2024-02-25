@@ -25,6 +25,7 @@ function Navigator() {
               to={item.route}
               className="decoration-none c-gray-5 text-sm"
               params={{}}
+              search={{}}
             >{ item.name }</Link>
           </RoleAccess>
         ))}
