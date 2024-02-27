@@ -20,6 +20,14 @@ export function createReviewTask(
   }).json<HttpResponse<null>>();
 }
 
+export function updateReviewTask(
+  value: Pick<ExamEntities.Exam, "id" | "name" | "subject" | "ai_mark">
+) {
+  return ky.put("/api/exam", {
+    json: value
+  }).json<HttpResponse<null>>();
+}
+
 export function getAnswerPaperInExam(examId: number) {
   return ky.get("/api/exam/answer-paper", {
     searchParams: {

@@ -1,7 +1,10 @@
-import { Link, Outlet, useNavigate, useParams, useSearch } from "@tanstack/react-router";
+import { Link, useNavigate, useParams, useSearch } from "@tanstack/react-router";
 import { Breadcrumb, Menu } from "antd";
 import { useEffect, useState } from "react";
 import useExam from "@/hooks/exam/use-exam";
+import AnswerPaperManage from "./answer-paper-manage.tab";
+import ReviewConfig from "./review-config.tab";
+import TestPaperTemplate from "./test-paper-template.tab";
 
 const Tabs = [
   { label: "答卷管理", key: "answer-paper-manage" },
@@ -35,19 +38,21 @@ export default function HeaderReviewTaskDetail() {
           { title: <Link to="/header/review-tasks">阅卷管理</Link> },
           { title: exam?.name }
         ]}/>
-      <section className="bg-white flex-auto py-sm rd-lg flex of-y-auto">
-        <section id="menu" className="w-60 bg-white h-full">
+      <div className="bg-white flex-auto py-sm rd-lg flex of-y-auto">
+        <nav id="menu" className="w-60 bg-white h-full">
           <Menu
             className="px-xs h-full"
             selectedKeys={currentTab ? [currentTab] : undefined}
             onClick={({ key }) => handleSwitchTab(key)}
             items={Tabs}
           />
-        </section>
-        <section className="flex-auto of-y-auto">
-          <Outlet />
-        </section>
-      </section>
+        </nav>
+        <div className="flex-auto of-y-auto">
+          { currentTab === "answer-paper-manage" && <AnswerPaperManage /> }
+          { currentTab === "test-paper-template" && <TestPaperTemplate /> }
+          { (currentTab === "review-config" && exam !== null) && <ReviewConfig exam={exam} /> }
+        </div>
+      </div>
     </section>
   );
 }
