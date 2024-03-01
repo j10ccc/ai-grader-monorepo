@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useExam from "@/hooks/exam/use-exam";
 import AnswerPaperManage from "./answer-paper-manage.tab";
 import ReviewConfig from "./review-config.tab";
-import TestPaperTemplate from "./test-paper-template.tab";
+import TestPaperTemplate from "./test-paper-template-tab";
 
 const Tabs = [
   { label: "答卷管理", key: "answer-paper-manage" },
@@ -39,7 +39,7 @@ export default function HeaderReviewTaskDetail() {
           { title: exam?.name }
         ]}/>
       <div className="bg-white flex-auto py-sm rd-lg flex of-y-auto">
-        <nav id="menu" className="w-60 bg-white h-full">
+        <nav id="menu" className="w-60 bg-white h-full shrink-0">
           <Menu
             className="px-xs h-full"
             selectedKeys={currentTab ? [currentTab] : undefined}
@@ -49,7 +49,7 @@ export default function HeaderReviewTaskDetail() {
         </nav>
         <div className="flex-auto of-y-auto">
           { currentTab === "answer-paper-manage" && <AnswerPaperManage /> }
-          { currentTab === "test-paper-template" && <TestPaperTemplate /> }
+          { (currentTab === "test-paper-template" && exam !== null) && <TestPaperTemplate exam={exam} /> }
           { (currentTab === "review-config" && exam !== null) && <ReviewConfig exam={exam} /> }
         </div>
       </div>

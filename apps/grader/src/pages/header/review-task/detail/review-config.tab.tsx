@@ -55,7 +55,7 @@ export default function ReviewConfig(props: IProps) {
           <FormItem label="科目" name="subject" required>
             <Input disabled />
           </FormItem>
-          <FormItem name="ai_mark">
+          <FormItem name="ai_mark" valuePropName="checked">
             <Checkbox>AI 预评阅</Checkbox>
           </FormItem>
           <FormItem className="flex justify-end">
