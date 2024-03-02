@@ -3,13 +3,13 @@ import { Alert, Button, Checkbox, Form, Input, InputNumber, Select } from "antd"
 import { useState } from "react";
 
 interface IProps {
-  questionId: number,
-  onCreate: (value: TestPaperEntities.Question) => Promise<void>;
+  initialValues: Partial<TestPaperEntities.Question>;
+  onSave: (value: TestPaperEntities.Question) => Promise<void>;
   onClose: () => void;
 }
 
 export default function EditQuestionForm(props: IProps) {
-  const { questionId, onClose, onCreate } = props;
+  const { initialValues, onClose, onSave } = props;
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string>();
 
@@ -19,7 +19,7 @@ export default function EditQuestionForm(props: IProps) {
     try {
       const valid = await TestPaperEntities.QuestionSchema.safeParseAsync(data);
       if (!valid.success) throw valid.error;
-      await onCreate(valid.data);
+      await onSave(valid.data);
       // TODO: clear form fields
     } catch(e: any) {
       setError(JSON.stringify(e));
@@ -32,7 +32,11 @@ export default function EditQuestionForm(props: IProps) {
     <Form
       className="border-t-solid border-color-gray-200"
       labelCol={{ span: 6 }}
-      initialValues={{ id: questionId, knowledge_points: [] }}
+      initialValues={{
+        knowledge_points: [],
+        ai_mark: true,
+        ...initialValues
+      }}
       onFinish={handleFinish}
     >
       <div className="max-w-lg px-lg pt-lg">
@@ -40,7 +44,7 @@ export default function EditQuestionForm(props: IProps) {
         <Form.Item label="题号" name="id" required>
           <Input disabled />
         </Form.Item>
-        <Form.Item label="AI 评阅" name={"ai_mark"} valuePropName="checked" initialValue={true}>
+        <Form.Item label="AI 评阅" name={"ai_mark"} valuePropName="checked">
           <Checkbox />
         </Form.Item>
         <Form.Item label="知识点分类" name="knowledge_points">

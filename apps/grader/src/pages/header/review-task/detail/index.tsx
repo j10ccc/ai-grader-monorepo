@@ -8,7 +8,7 @@ import TestPaperTemplate from "./test-paper-template-tab";
 
 const Tabs = [
   { label: "答卷管理", key: "answer-paper-manage" },
-  { label: "试卷模板", key: "test-paper-template" },
+  { label: "考卷题目", key: "test-paper-template" },
   { label: "评阅设置", key: "review-config" }
 ];
 

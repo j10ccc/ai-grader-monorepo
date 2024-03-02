@@ -1,6 +1,17 @@
 import { TestPaperEntities } from "@ai-grader/entities";
 import { Button, Tag } from "antd";
 import { useState } from "react";
+import EditQuestionForm from "./edit-question-form";
+
+function UpdateQuestionForm(props: {
+  initialValues: TestPaperEntities.Question,
+  onSave: (value: TestPaperEntities.Question) => Promise<void>,
+  onClose: () => void
+}) {
+  return (
+    <EditQuestionForm { ...props } />
+  );
+}
 
 function QuestionShowcase(props:
   { question: TestPaperEntities.Question, onEdit: () => void }
@@ -32,21 +43,29 @@ function QuestionShowcase(props:
       <p>
         <span className="text-sm op-50 mr-xs">参考答案</span>
         { question.ai_mark && <Tag color="purple">AI 评阅</Tag> }
-        <div className="mt-xs ml-sm ws-pre-line">{question.answer}</div>
+        <span className="mt-xs ml-sm ws-pre-line block">{question.answer}</span>
       </p>
     </div>
   );
 }
 
-export default function QuestionBlock(props: { question: TestPaperEntities.Question}) {
-  const { question } = props;
+export default function QuestionBlock(props:
+  { question: TestPaperEntities.Question, onUpdate: (value: TestPaperEntities.Question) => Promise<void> }
+) {
+  const { question, onUpdate } = props;
   const [editing, setEditing] = useState(false);
+
+  async function handleSave(data: any) {
+    const res = await onUpdate(data);
+    setEditing(false);
+    return res;
+  }
 
   return (
     <>
       {editing
-        ? null
-        : <QuestionShowcase question={question} onEdit={() => setEditing(false)} />
+        ? <UpdateQuestionForm initialValues={question} onSave={handleSave} onClose={() => setEditing(false)} />
+        : <QuestionShowcase question={question} onEdit={() => setEditing(true)} />
       }
     </>
   );

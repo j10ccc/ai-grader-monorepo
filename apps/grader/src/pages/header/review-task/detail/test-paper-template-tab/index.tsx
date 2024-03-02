@@ -16,14 +16,18 @@ function CreateQuestionBlock(props:
 
   return (
     showForm
-      ? <EditQuestionForm { ...props } onClose={() => setShowForm(false)}/>
+      ? <EditQuestionForm
+        initialValues={{ id: props.questionId }}
+        onSave={props.onCreate}
+        onClose={() => setShowForm(false)}
+      />
       : <Button onClick={() => setShowForm(true)}>添加题目</Button>
   );
 }
 
 export default function TestPaperTemplate(props: IProps) {
   const { exam } = props;
-  const { questions, loading, createQuestion } = useTestPaper(exam.id);
+  const { questions, loading, createQuestion, updateQuestion } = useTestPaper(exam.id);
 
   return (
     <div className="px-lg">
@@ -32,7 +36,7 @@ export default function TestPaperTemplate(props: IProps) {
         { loading
           ? <Spin />
           : questions.map(question => (
-            <QuestionBlock key={question.id} question={question} />
+            <QuestionBlock key={question.id} question={question} onUpdate={updateQuestion} />
           ))
         }
       </div>

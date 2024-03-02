@@ -17,9 +17,19 @@ export default function useTestPaper(examId: number) {
     mutate([...data || [], value]);
   }
 
+  async function updateQuestion(value: TestPaperEntities.Question) {
+    if (data === undefined) return;
+    const res = await TestPaperAPI.updateQuestion(value);
+    if (res.code !== 200) throw res.msg;
+    const toUpdateIndex = data.findIndex(question => question.id === value.id);
+    data[toUpdateIndex] = value;
+    mutate([...data]);
+  }
+
   return {
     questions: data || [],
     loading: isLoading,
-    createQuestion
+    createQuestion,
+    updateQuestion
   };
 }

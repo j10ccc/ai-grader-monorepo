@@ -15,3 +15,9 @@ export function createQuestion(examId: number, value: TestPaperEntities.Question
     .post(`/api/question`, { json: value, searchParams: { exam_id: examId } })
     .json<HttpResponse<null>>();
 }
+
+export function updateQuestion(value: TestPaperEntities.Question) {
+  return ky
+    .put("/api/question", { json: value })
+    .json<HttpResponse<null>>();
+}
