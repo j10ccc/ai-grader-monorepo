@@ -62,7 +62,7 @@ function Profile() {
 
 export default function Header() {
   return (
-    <header className="flex items-center h-14 border-gray-200 border-b-solid px-4">
+    <header className="flex items-center h-14 border-gray-200 border-b-solid px-4 shrink-0">
       <span className="text-[1.2rem] font-semibold space-x-4 op-80">{SystemConstants.brandName}</span>
       <Navigator />
       <div className="flex-auto" />
