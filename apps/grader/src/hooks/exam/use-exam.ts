@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import useSWR from "swr";
 
 export default function useExam(examId: number) {
-  const { data } = useSWR(
+  const { data, isLoading } = useSWR(
     [`/exam/${examId}`, examId],
     ([, id]) => ExamAPI.getExamDetail(id)
   );
@@ -17,6 +17,7 @@ export default function useExam(examId: number) {
   }, [data]);
 
   return {
-    exam
+    exam,
+    loading: isLoading
   };
 }

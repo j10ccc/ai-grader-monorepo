@@ -1,6 +1,7 @@
 import { Link, useNavigate, useParams, useSearch } from "@tanstack/react-router";
 import { Breadcrumb, Menu } from "antd";
 import { useEffect, useState } from "react";
+import Loading from "@/components/layout/loading";
 import useExam from "@/hooks/exam/use-exam";
 import AnswerPaperManage from "./answer-paper-manage.tab";
 import QuestionRecognizeConfig from "./question-recognize-config-tab";
@@ -16,7 +17,7 @@ const Tabs = [
 
 export default function HeaderReviewTaskDetail() {
   const params = useParams({ strict: false }) as { examId: string };
-  const { exam } = useExam(parseInt(params.examId));
+  const { exam, loading } = useExam(parseInt(params.examId));
   const [currentTab, setCurrentTab] = useState<string>();
   const search = useSearch({ strict: false });
   const navigate = useNavigate();
@@ -40,7 +41,8 @@ export default function HeaderReviewTaskDetail() {
           { title: <Link to="/header/review-tasks">阅卷管理</Link> },
           { title: exam?.name }
         ]}/>
-      <div className="bg-white flex-auto py-sm rd-lg flex of-y-auto">
+      <div className="relative bg-white flex-auto py-sm rd-lg flex of-y-auto">
+        { loading && <Loading extraClassName="bg-white bg-op-70" /> }
         <nav id="menu" className="w-60 bg-white h-full shrink-0">
           <Menu
             className="px-xs h-full"
