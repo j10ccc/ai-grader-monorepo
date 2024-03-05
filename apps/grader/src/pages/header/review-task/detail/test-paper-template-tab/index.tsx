@@ -32,6 +32,10 @@ export default function TestPaperTemplate(props: IProps) {
   return (
     <div className="px-lg">
       <h1>考卷题目管理</h1>
+      <div className="flex justify-between items-end">
+        <h2 className="text-sm op-60">共 {questions.length} 题</h2>
+        <Button type="link">从考卷扫描图像中导入</Button>
+      </div>
       <div className="mb-lg">
         { loading
           ? <Spin />
