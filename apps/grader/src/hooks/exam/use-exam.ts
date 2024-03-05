@@ -8,6 +8,7 @@ export default function useExam(examId: number) {
     ([, id]) => ExamAPI.getExamDetail(id)
   );
 
+  // TODO: replace memo with update swr callback
   const exam = useMemo(() => {
     if (data?.code === 200) {
       return data.data;

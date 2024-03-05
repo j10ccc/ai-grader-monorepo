@@ -3,6 +3,7 @@ import { Breadcrumb, Menu } from "antd";
 import { useEffect, useState } from "react";
 import useExam from "@/hooks/exam/use-exam";
 import AnswerPaperManage from "./answer-paper-manage.tab";
+import QuestionRecognizeConfig from "./question-recognize-config-tab";
 import ReviewConfig from "./review-config.tab";
 import TestPaperTemplate from "./test-paper-template-tab";
 
@@ -10,6 +11,7 @@ const Tabs = [
   { label: "评阅基本信息", key: "review-config" },
   { label: "学生答卷管理", key: "answer-paper-manage" },
   { label: "考卷题目管理", key: "test-paper-template" },
+  { label: "题目扫描调整", key: "question-recognize-config" },
 ];
 
 export default function HeaderReviewTaskDetail() {
@@ -51,6 +53,7 @@ export default function HeaderReviewTaskDetail() {
           { currentTab === "answer-paper-manage" && <AnswerPaperManage /> }
           { (currentTab === "test-paper-template" && exam !== null) && <TestPaperTemplate exam={exam} /> }
           { (currentTab === "review-config" && exam !== null) && <ReviewConfig exam={exam} /> }
+          { (currentTab === "question-recognize-config" && exam !== null) && <QuestionRecognizeConfig exam={exam} /> }
         </div>
       </div>
     </section>
