@@ -7,7 +7,8 @@ export default function useTestPaper(examId: number) {
     [`/test-paper/${examId}`, examId],
     async ([, examId]) => {
       const res = await TestPaperAPI.getTestPaperInExam(examId);
-      return res.data.question_list;
+      if (res.code === 200) return res.data.question_list;
+      return [];
     }
   );
 
