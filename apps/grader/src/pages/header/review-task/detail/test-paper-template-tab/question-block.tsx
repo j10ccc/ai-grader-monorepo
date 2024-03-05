@@ -24,7 +24,7 @@ function QuestionShowcase(props:
         <p>
           <span className="text-sm op-50 mr-xs">{question.id}.</span>
           <span className="text-sm c-red-500">({question.points}分) </span>
-          <span>{question.question}</span>
+          <span className="ws-pre-line">{question.question}</span>
         </p>
         <div className="flex mt-sm">
           <Button size="small" type="link" onClick={onEdit}>编辑</Button>
