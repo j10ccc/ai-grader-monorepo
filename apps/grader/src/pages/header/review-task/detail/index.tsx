@@ -7,9 +7,9 @@ import ReviewConfig from "./review-config.tab";
 import TestPaperTemplate from "./test-paper-template-tab";
 
 const Tabs = [
-  { label: "答卷管理", key: "answer-paper-manage" },
-  { label: "考卷题目", key: "test-paper-template" },
-  { label: "评阅设置", key: "review-config" }
+  { label: "评阅基本信息", key: "review-config" },
+  { label: "学生答卷管理", key: "answer-paper-manage" },
+  { label: "考卷题目管理", key: "test-paper-template" },
 ];
 
 export default function HeaderReviewTaskDetail() {
