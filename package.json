@@ -5,7 +5,8 @@
     "dev:grader": "cd apps/grader && npm run dev",
     "lint": "nx lint",
     "build": "nx build",
-    "build:all": "nx run-many -t build"
+    "build:all": "nx run-many -t build",
+    "deploy": "node scripts/deploy.js"
   },
   "devDependencies": {
     "@nx/eslint": "18.0.4",

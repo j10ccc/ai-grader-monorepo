@@ -18,3 +18,5 @@ node_modules
 
 .docker/nginx/default.conf
 .env
+
+dist/
