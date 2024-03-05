@@ -14,13 +14,11 @@ export default function LoginForm() {
     const res = await AuthAPI.login(e);
     setSubmitting(false);
     try {
-      if (res.code === 200) {
-        setAuth(res.data);
-        navigate({ to: "/dashboard" });
-      } else {
-      }
+      if (res.code !== 200) throw res.data.message;
+      setAuth(res.data);
+      navigate({ to: "/dashboard" });
     } catch(e: any) {
-      message.error({ content: e.message });
+      message.error({ content: e });
     } finally {
       setSubmitting(false);
     }
