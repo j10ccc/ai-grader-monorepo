@@ -19,7 +19,7 @@ export default function QuestionRecognizeConfig(props: IProps) {
   const { exam } = props;
   const [imageUrl, setImageUrl] = useState<string>();
   const [uploading, setUploading] = useState(false);
-  const { template } = useAnswerPaperTemplate(exam.id);
+  const { } = useAnswerPaperTemplate(exam.id);
 
   // TODO: handle multiple photos
   const handleUpload: UploadProps["onChange"] = (info) => {
