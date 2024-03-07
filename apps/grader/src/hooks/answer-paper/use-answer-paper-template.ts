@@ -6,7 +6,8 @@ export default function useAnswerPaperTemplate(examId: number) {
     [`/answer-paper/template/${examId}`, examId],
     async ([, id]) => {
       const res = await AnswerPaperAPI.getTemplateMeta(id);
-      return res.question_list;
+      if (res.code === 200) return res.data.question_list;
+      return null;
     }
   );
 

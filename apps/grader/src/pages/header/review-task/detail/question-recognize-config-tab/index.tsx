@@ -2,6 +2,7 @@ import { ExamEntities } from "@ai-grader/entities";
 import { Button, Divider, GetProp, Image, Upload, UploadProps } from "antd";
 import { useState } from "react";
 import useAnswerPaperTemplate from "@/hooks/answer-paper/use-answer-paper-template";
+import PaperWithAnnotation from "./paper-with-annotation";
 
 interface IProps {
   exam: ExamEntities.Exam;
@@ -19,7 +20,7 @@ export default function QuestionRecognizeConfig(props: IProps) {
   const { exam } = props;
   const [imageUrl, setImageUrl] = useState<string>();
   const [uploading, setUploading] = useState(false);
-  const { } = useAnswerPaperTemplate(exam.id);
+  const { template } = useAnswerPaperTemplate(exam.id);
 
   // TODO: handle multiple photos
   const handleUpload: UploadProps["onChange"] = (info) => {
@@ -53,7 +54,15 @@ export default function QuestionRecognizeConfig(props: IProps) {
         { imageUrl &&
           <div className="bg-gray-100 rd-lg border-solid border-gray-300 of-hidden">
             <div className="size-[240]">
-              <Image width={240} height={240} src={imageUrl} />
+              <Image
+                width={240}
+                height={240}
+                src={imageUrl}
+                preview={{
+                  imageRender: () => <PaperWithAnnotation imageUrl={imageUrl} items={template} />,
+                  toolbarRender: () => null
+                }}
+              />
             </div>
             <div className="px-sm pt-1 pb-2 text-sm op-70">{imageUrl.slice(0, 20)}</div>
           </div>
