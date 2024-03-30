@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@j10c/eslint-config": "^0.4.0",
+    "@leafer-ui/interface": "1.0.0-rc.19",
     "@tanstack/router-vite-plugin": "^1.16.5",
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.43",
