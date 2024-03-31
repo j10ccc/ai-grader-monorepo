@@ -14,12 +14,17 @@ export default function RegisterForm() {
   }
 
   return (
-    <Form size="large" onFinish={handleSubmit}>
+    <Form
+      size="large"
+      onFinish={handleSubmit}
+      initialValues={{
+        type: UserEntities.RoleCodeEnum.Teacher
+      }}
+    >
       <div className="flex gap-sm">
         <Form.Item name="type" className="w-30">
           <Select
             placeholder="身份"
-            defaultValue={UserEntities.RoleCodeEnum.Teacher}
             options={[
               { value: UserEntities.RoleCodeEnum.Teacher, label: UserEntities.RoleNameEnum.Teacher },
               { value: UserEntities.RoleCodeEnum.Header, label: UserEntities.RoleNameEnum.Header },
