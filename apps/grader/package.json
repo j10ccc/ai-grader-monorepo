@@ -36,8 +36,10 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "mockjs": "^1.1.0",
     "typescript": "^5.2.2",
     "unocss": "^0.58.5",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-mock": "^3.0.1"
   }
 }

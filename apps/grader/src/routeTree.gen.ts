@@ -16,9 +16,10 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthenticatedWorkspaceDashboardImport } from './routes/_authenticated/_workspace/dashboard'
-import { Route as AuthenticatedWorkspaceClassesImport } from './routes/_authenticated/_workspace/classes'
 import { Route as AuthenticatedWorkspaceExamsIndexImport } from './routes/_authenticated/_workspace/exams/index'
+import { Route as AuthenticatedWorkspaceClassesIndexImport } from './routes/_authenticated/_workspace/classes/index'
 import { Route as AuthenticatedWorkspaceExamsDetailExamIdImport } from './routes/_authenticated/_workspace/exams/detail.$examId'
+import { Route as AuthenticatedWorkspaceClassesAnalysisClassIdImport } from './routes/_authenticated/_workspace/classes/analysis.$classId'
 import { Route as AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdImport } from './routes/_authenticated/_workspace/header/review-tasks/detail.$examId'
 
 // Create Virtual Routes
@@ -63,15 +64,15 @@ const AuthenticatedWorkspaceDashboardRoute =
     getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
   } as any)
 
-const AuthenticatedWorkspaceClassesRoute =
-  AuthenticatedWorkspaceClassesImport.update({
-    path: '/classes',
-    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
-  } as any)
-
 const AuthenticatedWorkspaceExamsIndexRoute =
   AuthenticatedWorkspaceExamsIndexImport.update({
     path: '/exams/',
+    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
+  } as any)
+
+const AuthenticatedWorkspaceClassesIndexRoute =
+  AuthenticatedWorkspaceClassesIndexImport.update({
+    path: '/classes/',
     getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
   } as any)
 
@@ -88,6 +89,12 @@ const AuthenticatedWorkspaceHeaderReviewTasksIndexLazyRoute =
 const AuthenticatedWorkspaceExamsDetailExamIdRoute =
   AuthenticatedWorkspaceExamsDetailExamIdImport.update({
     path: '/exams/detail/$examId',
+    getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
+  } as any)
+
+const AuthenticatedWorkspaceClassesAnalysisClassIdRoute =
+  AuthenticatedWorkspaceClassesAnalysisClassIdImport.update({
+    path: '/classes/analysis/$classId',
     getParentRoute: () => AuthenticatedWorkspaceLazyRoute,
   } as any)
 
@@ -117,16 +124,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWorkspaceLazyImport
       parentRoute: typeof AuthenticatedImport
     }
-    '/_authenticated/_workspace/classes': {
-      preLoaderRoute: typeof AuthenticatedWorkspaceClassesImport
-      parentRoute: typeof AuthenticatedWorkspaceLazyImport
-    }
     '/_authenticated/_workspace/dashboard': {
       preLoaderRoute: typeof AuthenticatedWorkspaceDashboardImport
       parentRoute: typeof AuthenticatedWorkspaceLazyImport
     }
+    '/_authenticated/_workspace/classes/': {
+      preLoaderRoute: typeof AuthenticatedWorkspaceClassesIndexImport
+      parentRoute: typeof AuthenticatedWorkspaceLazyImport
+    }
     '/_authenticated/_workspace/exams/': {
       preLoaderRoute: typeof AuthenticatedWorkspaceExamsIndexImport
+      parentRoute: typeof AuthenticatedWorkspaceLazyImport
+    }
+    '/_authenticated/_workspace/classes/analysis/$classId': {
+      preLoaderRoute: typeof AuthenticatedWorkspaceClassesAnalysisClassIdImport
       parentRoute: typeof AuthenticatedWorkspaceLazyImport
     }
     '/_authenticated/_workspace/exams/detail/$examId': {
@@ -150,9 +161,10 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AuthenticatedRoute.addChildren([
     AuthenticatedWorkspaceLazyRoute.addChildren([
-      AuthenticatedWorkspaceClassesRoute,
       AuthenticatedWorkspaceDashboardRoute,
+      AuthenticatedWorkspaceClassesIndexRoute,
       AuthenticatedWorkspaceExamsIndexRoute,
+      AuthenticatedWorkspaceClassesAnalysisClassIdRoute,
       AuthenticatedWorkspaceExamsDetailExamIdRoute,
       AuthenticatedWorkspaceHeaderReviewTasksIndexLazyRoute,
       AuthenticatedWorkspaceHeaderReviewTasksDetailExamIdRoute,
